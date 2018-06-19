@@ -6,6 +6,43 @@ function isProduction() {
 
 };
 
+// All instances
+
+Book.all = [];
+const bookView = {};
+
+// Render books to HTML
+
+Book.prototype.toHtml = function() {
+    var template = Handlebars.compile($('#book-list-template').text());
+
+    return template(this);
+};
+
+// Load book instances
+
+Book.loadAll = bookData => {
+    bookData.sort((a, b) => {
+        if(a.title < b.title) return -1;
+        if(a.title > b.title) return 1;
+        return 0;
+    });
+  
+    bookData.forEach(bookObject => Book.all.push(new Book(bookObject)))
+};
+
+// Fetch books from DB
+
+Book.fetchAll = callback => {
+    $.get('/api/v1/books')
+      .then(
+        function(results) {
+          Book.loadAll(results);
+          callback();
+        }
+      )
+  };
+
 // Book Constructor
 
 bookView.create = () => {
@@ -25,4 +62,5 @@ bookView.create = () => {
   
     $('#export-field').show();
     $('#book-json').val(`${JSON.stringify(books)},`);
-  };
+};
+
