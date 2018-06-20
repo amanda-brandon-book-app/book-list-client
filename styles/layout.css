@@ -1,0 +1,54 @@
+header h1 {
+    text-align: left;
+    font-size: 1.5em;
+}
+
+nav {
+    font-size: .75em;
+}
+
+main {
+    margin-top: 2em;
+}
+
+main section {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* === FLOATING AND CLEARFIX === */
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* === MEDIA QUERY === */
+
+@media only screen and (min-width: 640px) {
+    section {
+        float: none;
+    }
+
+    select {
+        width: 15em;
+        margin: .2em .2em;
+    }
+
+    #filters li {
+        display: inline;
+    }
+}
+  
