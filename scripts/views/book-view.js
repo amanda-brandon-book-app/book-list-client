@@ -40,6 +40,14 @@ Book.fetchAll = callback => {
         })
 };
 
+Book.fetchSlim = callback => {
+    $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books-slim`)
+        .then(results => {
+            Book.loadAll(results);
+            callback();
+        })
+};
+
 // Append books to HTML
 bookView.initIndexPage = () => {
     $('.book-container').hide();
