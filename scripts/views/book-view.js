@@ -6,7 +6,7 @@ var bookView = {};
 // IFFE
 (function(module){
 
-// Creates book object
+// Creates book objects
 function Book(bookObj) {
     Object.keys(bookObj).forEach(key => this[key] = bookObj[key]);
 };
@@ -21,8 +21,8 @@ Book.prototype.toHtml = function() {
 // Load book instances
 Book.all = [];
 
-Book.loadAll = bookData => {
-    bookData.sort((a, b) => {
+Book.loadAll = rows => {
+    rows.sort((a, b) => {
         if(a.title < b.title) return -1;
         if(a.title > b.title) return 1;
         return 0;
@@ -32,8 +32,10 @@ Book.loadAll = bookData => {
 };
 
 // Fetch books from DB
+// Replace hard code with template literal after testing
+// `${app.ENVIRONMENT.apiURL}/api/v1/books`
 Book.fetchAll = callback => {
-    $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books`)
+    $.get('http://localhost:3000/api/v1/books')  
       .then(function(results) {
           Book.loadAll(results);
           callback();

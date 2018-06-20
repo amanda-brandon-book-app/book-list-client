@@ -15,17 +15,17 @@
 
     <script id="book-list-template" type="text/x-handlebars-template">
         <section class="book-instance" data-author="{{author}}" data-category="{{category}}">
-            <header>
+            <!-- <header>
                 <img href="{{image_url}}" target="_blank" />
             </header>
-            
+             -->
             <section>
+                <a><img src="{{image_url}}" target="_blank" /></a>
                 <h2>{{title}}</h2>
                 <a>By: {{author}}</a>
-                <p>ISBN: {{isbn}}</p>
+                <p>{{isbn}}</p>
             </section>
             <section class="book-description">{{{description}}}</section>
-          
         </section>
     </script>
 </head>
@@ -42,22 +42,10 @@
         </nav>
     </header>
     <main>
-        <section id="book-list" class="tab-content">
-            <div>
-                <ul id="filters">
-                    <li>
-                        <select id="author-filter">
-                            <option value="">-- Filter by Authors --</option>
-                        </select>
-                    </li>
-                    <li>
-                        <select id="category-filter">
-                            <option value="">-- Filter by Categories --</option>
-                        </select>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        <section class="container"></section>
+
+        <section id="book-list" class="book-view"></section>
+        
         <section id="about" class="tab-content">
             <header>Welcome to our Book App</header>
             <section>
@@ -87,6 +75,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script src="scripts/index.js"></script>
+    <script src="scripts/views/book-view.js"></script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@ var app = {};
 // Evaluate for production or development enviroment
 
 let productionApi = 'https://am-bf-booklist.herokuapp.com/';
-let devApi = 'http:localhost:3000';
+let devApi = 'http://localhost:3000';
 
 module.isProduction = /^(?!localhost|127)/.test(window.location.hostname);
 
