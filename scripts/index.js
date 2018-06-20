@@ -1,6 +1,6 @@
 'use strict'
 
-var app = {};
+var index = {};
 
 (function(module){
 
@@ -15,4 +15,4 @@ module.ENVIRONMENT = {
     apiURL: module.isProduction ? productionApi : devApi
 };
 
-})(app);
+})(index);
