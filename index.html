@@ -14,7 +14,7 @@
     <title>Amanda &amp; Brandon's Book App</title>
 
     <script id="book-list-template" type="text/x-handlebars-template">
-        <article class="book-instance" data-author="{{author}}" data-category="{{category}}">
+        <section class="book-instance" data-author="{{author}}" data-category="{{category}}">
             <header>
                 <img href="{{image_url}}" target="_blank" />
             </header>
@@ -26,13 +26,13 @@
             </section>
             <section class="book-description">{{{description}}}</section>
           
-        </article>
+        </section>
     </script>
 </head>
 
 <body>
     <header>
-        <h1>Amanda &amp; Brandon's Book App</h1>
+        <h1>BOOKAGRAM</h1>
         <div class="icon-menu"></div>
         <nav>
             <ul>
@@ -42,7 +42,7 @@
         </nav>
     </header>
     <main>
-        <section id="books" class="tab-content">
+        <section id="book-list" class="tab-content">
             <div>
                 <ul id="filters">
                     <li>
