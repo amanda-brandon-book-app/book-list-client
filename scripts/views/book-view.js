@@ -32,10 +32,8 @@ Book.loadAll = rows => {
 };
 
 // Fetch books from DB
-// Replace hard code with template literal after testing
-// `${app.ENVIRONMENT.apiURL}/api/v1/books`
 Book.fetchAll = callback => {
-    $.get('http://localhost:3000/api/v1/books')  
+    $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books`)  
       .then(function(results) {
           Book.loadAll(results);
           callback();
