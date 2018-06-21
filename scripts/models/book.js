@@ -18,7 +18,9 @@ Book.prototype.toHtml = function() {
 
 // Load book instances
 Book.all = [];
+Book.one = [];
 
+// All
 Book.loadAll = rows => {
     rows.sort((a, b) => {
         if(a.title < b.title) return -1;
@@ -29,6 +31,19 @@ Book.loadAll = rows => {
     Book.all = rows.map((info) => new Book(info));
 };
 
+// One
+Book.loadOne = rows => {
+    rows.sort((a,b) => {
+        if(a.title < b.title) return -1;
+        if(a.title > b.title) return 1;
+        return 0;
+    });
+
+    Book.one = rows.map((info) => new Book(info));
+};
+
+// =============== GETS ===================
+
 // Fetch books from DB
 Book.fetchAll = callback => {
     $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books`)  
@@ -38,7 +53,7 @@ Book.fetchAll = callback => {
         })
 };
 
-// Fetch books without a description
+// Fetch books without a description or ISBN
 Book.fetchSlim = callback => {
     $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books-slim`)
         .then(results => {
@@ -47,16 +62,29 @@ Book.fetchSlim = callback => {
         })
 };
 
+// Fetch one book
+Book.fetchOne = callback => {
+    $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books:id`)
+        .then(results => {
+            Book.loadOne(results);
+            callback();
+        })
+};
+
+// ================ POSTS ================
+
+
+
 // Initializes home page
-bookView.initIndexPage = () => {
+booksApp.initIndexPage = () => {
     $('.book-container').hide();
-    $('.book-view').show();
+    $('.book-sbooksApp').show();
     Book.all.forEach(bookInst => $('#book-list').append(bookInst.toHtml()));
 };
 
 // Call fetch all on page load
 $(document).ready(function() {
-    Book.fetchAll(bookView.initIndexPage);
+    Book.fetchAll(booksApp.initIndexPage);
 });
 
 })(booksApp);
