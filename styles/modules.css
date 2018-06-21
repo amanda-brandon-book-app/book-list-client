@@ -59,3 +59,8 @@ a:hover, a:focus {
       color: #29506D;
     }
   }
+
+.create-view form, .update-view form {
+  width: 80%;
+  margin: 2vw auto;
+}
