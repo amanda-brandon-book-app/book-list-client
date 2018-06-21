@@ -1,6 +1,6 @@
 'use strict'
 
-var app = {};
+var booksApp = {};
 
 (function(module) {
 
@@ -38,6 +38,7 @@ Book.fetchAll = callback => {
         })
 };
 
+// Fetch books without a description
 Book.fetchSlim = callback => {
     $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books-slim`)
         .then(results => {
@@ -46,9 +47,16 @@ Book.fetchSlim = callback => {
         })
 };
 
-// Call fetch all on page loade
+// Initializes home page
+bookView.initIndexPage = () => {
+    $('.book-container').hide();
+    $('.book-view').show();
+    Book.all.forEach(bookInst => $('#book-list').append(bookInst.toHtml()));
+};
+
+// Call fetch all on page load
 $(document).ready(function() {
     Book.fetchAll(bookView.initIndexPage);
 });
 
-})(app);
+})(booksApp);

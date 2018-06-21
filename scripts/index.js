@@ -1,11 +1,10 @@
 'use strict'
 
-var index = {};
+var app = {};
 
 (function(module){
 
 // Evaluate for production or development enviroment
-
 let productionApi = 'https://am-bf-booklist.herokuapp.com';
 let devApi = 'http://localhost:3000';
 
@@ -15,4 +14,10 @@ module.ENVIRONMENT = {
     apiURL: module.isProduction ? productionApi : devApi
 };
 
-})(index);
+// Error callback
+function errorCallback(errorObj) {
+    console.log(errorObj);
+    errorView.initErrorPage(errorObj);
+};
+
+})(app);
