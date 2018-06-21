@@ -12,9 +12,4 @@ errorView.initErrorPage = (err) => {
     Handlebars.compile($('#error-template').text(err));
 };
 
-function errorCallback(errorObj) {
-    console.log(errorObj);
-    errorView.initErrorPage(errorObj);
-};
-
 })(error);
