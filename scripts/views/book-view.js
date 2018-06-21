@@ -7,5 +7,6 @@ var bookView = {};
 (function(module){
 
 
+
 // Closes IFFE
 })(bookView);
