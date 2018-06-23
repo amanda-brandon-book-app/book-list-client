@@ -34,6 +34,7 @@ Book.loadAll = rows => {
     Book.all = rows.map((info) => new Book(info));
 };
 
+// Slim
 Book.loadSlim = rows => {
     rows.sort((a, b) => {
         if(a.title < b.title) return -1;
@@ -80,8 +81,6 @@ booksApp.fetchOne = callback => {
 
 // ================ POSTS ================
 
-
-
 // Initializes home page
 booksApp.initIndexPage = () => {
     $('.book-container').hide();
@@ -93,5 +92,7 @@ booksApp.initIndexPage = () => {
 $(document).ready(function() {
     booksApp.fetchAll(booksApp.initIndexPage);
 });
+
+// module.booksApp = booksApp;
 
 // })(app);

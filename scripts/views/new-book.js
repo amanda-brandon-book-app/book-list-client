@@ -1,10 +1,10 @@
 'use strict'
 
-var app = {};
+var app = app || {};
 
-(function(module) {
+// (function(module) {
 
-const newBook = {};
+// const newBook = {};
 
 // Post event listener
 $('#post-button').on('click', handleNewForm);
@@ -22,5 +22,6 @@ function handleNewForm(e) {
     $.post(`${app.ENVIRONMENT.apiURL}/api/v1/books`, bookForm)
         .then(data => console.log(data))
 };
+// module.newBook = newBook;
 
-})(app);
+// })(app);

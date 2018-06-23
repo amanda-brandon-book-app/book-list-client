@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/modules.css">
-    <link rel="icon" type="image/x-icon" href="https://www.iconsdb.com/icons/preview/caribbean-blue/book-xxl.png">
+    <!-- <link rel="icon" type="image/x-icon" href="https://www.iconsdb.com/icons/preview/caribbean-blue/book-xxl.png"> -->
 
     <title>Amanda &amp; Brandon's Book App</title>
 
@@ -44,22 +44,24 @@
         </nav>
     </header>
     <main>
-        <section class="container"></section>
+        <section id="home-view" class="container"></section>
 
         <section id="book-list" class="book-view"></section>
 
         <section id="book-detail" class="book-view"></section>
 
-        <section class="create-view container">
-            <h2 class="view-title">Add a new book</h2>
-            <form id="create-form">
-                <input type="text" name="title" placeholder="Title">
-                <input type="text" name="author" placeholder="Author">
-                <input type="text" name="isbn" placeholder="ISBN">
-                <input type="text" name="image_url" placeholder="Link to Image">
-                <textarea name="description" placeholder="Description/Summary" cols="30" rows="5"></textarea>
-                <button type="submit">Submit</button>
-            </form>
+        <section id="create-view" class="container">
+            <fieldset>
+                <legend>Add a New Book</legend>
+                <form id="create-form">
+                    <input type="text" name="title" placeholder="Title">
+                    <input type="text" name="author" placeholder="Author">
+                    <input type="text" name="isbn" placeholder="ISBN">
+                    <input type="text" name="image_url" placeholder="Link to Image">
+                    <textarea name="description" placeholder="Description/Summary" cols="30" rows="5"></textarea>
+                    <button id="postbutton" type="submit">Submit</button>
+                </form>
+            </fieldset>
         </section>
 
         <section class="update-view container">
@@ -74,8 +76,6 @@
             </form>
         </section>
 
-        
-        
         <section id="about" class="tab-content">
             <header>Welcome to our Book App</header>
             <section>
