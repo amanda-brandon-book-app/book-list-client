@@ -6,23 +6,21 @@ var app = {};
 
 const newBook = {};
 
-newBook.create = function() {
-    $('#book-list').empty();
-    let bookForm = new app.Book({
-        title: $('book-title').val(),
-        author: $('book-author').val(),
-        isbn: $('book-isbn').val(),
-        image_url: $('book-image_url').val(),
-        description: $('book-description').val()
-    });
+// Post event listener
+$('#post-button').on('click', handleNewForm);
 
-    bookForm.render = function() {
-        var template = Handlebars.compile($('#book-list-template').text());
-    
-        return template(this);
-    };
+// Post event handler
+function handleNewForm(e) {
+    e.preventDefault();
+    let bookForm = {};
 
-    $('#book-list').append(bookForm.render());
+    bookForm.title = $('book-title').val()
+    bookForm.author = $('book-author').val(),
+    bookForm.isbn = $('book-isbn').val(),
+    bookForm.image_url = $('book-image_url').val(),
+    bookForm.description = $('book-description').val()
+    $.post(`${app.ENVIRONMENT.apiURL}/api/v1/books`, bookForm)
+        .then(data => console.log(data))
 };
 
 })(app);

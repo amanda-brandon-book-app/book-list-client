@@ -80,19 +80,6 @@ booksApp.fetchOne = callback => {
 
 // ================ POSTS ================
 
-// Create a new book
-Book.prototype.insertNewBook = function(callback) {
-    $.post(`${app.ENVIRONMENT.apiURL}/api/v1/books`, {
-        title: this.title,
-        author: this.author, 
-        isbn: this.isbn, 
-        image_url: this.image_url, 
-        description: this.description
-    })
-    .then(console.log)
-    .then(callback);
-};
-
 
 
 // Initializes home page
