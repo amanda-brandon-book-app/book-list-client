@@ -34,6 +34,7 @@ Book.loadAll = rows => {
     Book.all = rows.map((info) => new Book(info));
 };
 
+// Slim
 Book.loadSlim = rows => {
     rows.sort((a, b) => {
         if(a.title < b.title) return -1;
@@ -80,20 +81,22 @@ booksApp.fetchOne = callback => {
 
 // ================ POSTS ================
 
-// Create a new book
-Book.prototype.insertNewBook = function(callback) {
-    $.post(`${app.ENVIRONMENT.apiURL}/api/v1/books`, {
-        title: this.title,
-        author: this.author, 
-        isbn: this.isbn, 
-        image_url: this.image_url, 
-        description: this.description
-    })
-    .then(console.log)
-    .then(callback);
+// Post event listener
+$('#postbutton').on('click', handleNewForm);
+
+// Post event handler
+function handleNewForm(e) {
+    e.preventDefault();
+    let bookForm = {};
+
+    bookForm.title = $('book-title').val()
+    bookForm.author = $('book-author').val(),
+    bookForm.isbn = $('book-isbn').val(),
+    bookForm.image_url = $('book-image_url').val(),
+    bookForm.description = $('book-description').val()
+    $.post(`${app.ENVIRONMENT.apiURL}/api/v1/books`, bookForm)
+        .then(data => console.log(data))
 };
-
-
 
 // Initializes home page
 booksApp.initIndexPage = () => {
@@ -106,5 +109,7 @@ booksApp.initIndexPage = () => {
 $(document).ready(function() {
     booksApp.fetchAll(booksApp.initIndexPage);
 });
+
+// module.booksApp = booksApp;
 
 // })(app);
