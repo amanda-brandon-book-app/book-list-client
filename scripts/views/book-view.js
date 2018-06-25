@@ -20,8 +20,8 @@ function resetter() {
 // Initializes home page
 bookView.initIndexPage = function(ctx, next) {
     resetter();
-    // $('.book-view').show();
-    // $('#book-list').empty();
+    $('.book-view').show();
+    $('#book-list').show();
     module.Book.all.forEach(book => $('#book-list').append(book.toHtml()));
     next();
 };
@@ -30,7 +30,6 @@ bookView.initIndexPage = function(ctx, next) {
 bookView.initDetailPage = function(ctx, next) {
     resetter();
     $('.detail-view').show();
-    $('.book-detail').empty();
     let template = Handlebars.compile($('#book-detail-template').text());
     $('.book-detail').append(template(ctx.book));
 
