@@ -4,8 +4,6 @@ var app = app || {};
 
 (function(module) {
 
-const booksApp = {};
-
 // Error callback
 function errorCallback(err) {
     console.error(err);
@@ -43,7 +41,7 @@ Book.loadAll = rows => {
 // =============== GETS ===================
 
 // Fetch books from DB
-booksApp.fetchAll = callback => {
+Book.fetchAll = callback => {
     $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books`)  
     .then(function(results) {
         Book.loadAll(results);
@@ -53,7 +51,7 @@ booksApp.fetchAll = callback => {
 };
 
 // Fetch one book
-booksApp.fetchOne = (ctx, callback) => {
+Book.fetchOne = (ctx, callback) => {
     $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books/${ctx.params.book_id}`)
     .then(function(results) {
         ctx.book = results[0]
@@ -90,7 +88,6 @@ Book.delete = id =>
     .then(() => page('/'))
     .catch(errorCallback);
 
-
-module.booksApp = booksApp;
+module.Book = Book;
 
 })(app);
