@@ -1,15 +1,19 @@
 'use strict'
 
-// var app = app || {};
+var app = app || {};
 
-// (function(module) {
+(function(module) {
 
-var booksApp = {};
-    
-Book.all = [];
-Book.slim = [];
-Book.one = [];
-    
+const booksApp = {};
+
+// Error callback
+function errorCallback(err) {
+    console.error(err);
+    module.errorView.initErrorPage(err);
+};
+
+// ========== Constructor & Rendering ==========
+
 // Creates book objects
 function Book(bookObj) {
     Object.keys(bookObj).forEach(key => this[key] = bookObj[key]);
@@ -23,6 +27,8 @@ Book.prototype.toHtml = function() {
 
 // =========== Load book instances ===========
 
+Book.all = [];
+
 // All
 Book.loadAll = rows => {
     rows.sort((a, b) => {
@@ -34,65 +40,57 @@ Book.loadAll = rows => {
     Book.all = rows.map((info) => new Book(info));
 };
 
-// Slim
-Book.loadSlim = rows => {
-    rows.sort((a, b) => {
-        if(a.title < b.title) return -1;
-        if(a.title > b.title) return 1;
-        return 0;
-    });
-  
-    Book.slim = rows.map((info) => new Book(info));
-};
-
-// One
-Book.loadOne = rows => {
-    Book.one = rows.map((info) => new Book(info));
-};
-
 // =============== GETS ===================
 
 // Fetch books from DB
 booksApp.fetchAll = callback => {
     $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books`)  
-      .then(function(results) {
-          Book.loadAll(results);
-          callback();
-        })
-};
-
-// Fetch books without a description or ISBN
-booksApp.fetchSlim = callback => {
-    $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books-slim`)
-        .then(results => {
-            Book.loadSlim(results);
-            callback();
-        })
+    .then(function(results) {
+        Book.loadAll(results);
+    })
+    .then(callback())
+    .catch(errorCallback);     
 };
 
 // Fetch one book
-booksApp.fetchOne = callback => {
-    $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books/${id}`)
-        .then(results => {
-            Book.loadOne(results);
-            callback();
-        })
+booksApp.fetchOne = (ctx, callback) => {
+    $.get(`${app.ENVIRONMENT.apiURL}/api/v1/books/${ctx.params.book_id}`)
+    .then(function(results) {
+        ctx.book = results[0]
+    })
+    .then(callback())
+    .catch(errorCallback);
 };
 
-// ================ POSTS ================
+// ================ POST ================
 
-// Initializes home page
-booksApp.initIndexPage = () => {
-    $('.book-container').hide();
-    $('.book-booksApp').show();
-    Book.all.forEach(bookInst => $('#book-list').append(bookInst.toHtml()));
-};
+Book.create = book => 
+    $.post(`${app.ENVIRONMENT.apiURL}/api/v1/books`, book)
+    .then(() => page('/'))
+    .catch(errorCallback);
 
-// Call fetch all on page load
-$(document).ready(function() {
-    booksApp.fetchAll(booksApp.initIndexPage);
-});
+// =============== UPDATE ===============
 
-// module.booksApp = booksApp;
+Book.update = (book, bookNum) =>
+    $.ajax({
+        url: `${app.ENVIRONMENT.apiURL}/api/v1/books/${bookNum}`,
+        method: 'PUT',
+        data: book
+    })
+    .then(() => page(`/books/${book_id}`))
+    .catch(errorCallback);
 
-// })(app);
+// =============== DELETE ===============
+
+Book.delete = id =>
+    $.ajax({
+        url: `${app.ENVIRONMENT.apiURL}/api/v1/books/${id}`,
+        method: 'DELETE'
+    })
+    .then(() => page('/'))
+    .catch(errorCallback);
+
+
+module.booksApp = booksApp;
+
+})(app);
