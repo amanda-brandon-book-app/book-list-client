@@ -75,7 +75,7 @@ Book.update = (book, bookNum) =>
         method: 'PUT',
         data: book
     })
-    .then(() => page(`/books/${book_id}`))
+    .then(() => page(`/books/${bookNum}`))
     .catch(errorCallback);
 
 // =============== DELETE ===============

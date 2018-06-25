@@ -9,9 +9,6 @@ var app = app || {};
 var bookView = {};
 
 // ============ reset page ============
-$('.icons').on('click', function(event) {
-    $('.menu').slideUp(100);
-});
 
 function resetter() {
     $('.container').hide();
@@ -23,8 +20,8 @@ function resetter() {
 // Initializes home page
 bookView.initIndexPage = function(ctx, next) {
     resetter();
-    $('.book-view').show();
-    $('#book-list').empty();
+    // $('.book-view').show();
+    // $('#book-list').empty();
     module.Book.all.forEach(book => $('#book-list').append(book.toHtml()));
     next();
 };
